@@ -5,12 +5,12 @@ const SMARTCARE_API_BASE = 'https://api.smartcareplus.in/dicom-viewer';
 const IMAGING_AI_API_BASE = 'https://api.imaging.smartcareplus.in';
 
 const SECTIONS = [
-  { key: 'clinicalIndication', label: 'Clinical Indication' },
+  { key: 'clinical_indication', label: 'Clinical Indication' },
   { key: 'findings', label: 'Findings' },
   { key: 'impression', label: 'Impression' },
-  { key: 'patientSummary', label: 'Patient Summary' },
+  { key: 'patient_summary', label: 'Patient Summary' },
   { key: 'recommendations', label: 'Recommendations' },
-  { key: 'additionalNotes', label: 'Additional Notes' },
+  { key: 'additional_notes', label: 'Additional Notes' },
   { key: 'declaration', label: 'Declaration' },
 ];
 
@@ -39,30 +39,17 @@ type TemplateOption = {
 };
 
 const EMPTY_REPORT: ReportState = {
-  clinicalIndication: '',
+  clinical_indication: '',
   findings: '',
   impression: '',
-  patientSummary: '',
+  patient_summary: '',
   recommendations: '',
-  additionalNotes: '',
+  additional_notes: '',
   declaration: '',
   status: 'draft',
 };
 
-const DEFAULT_FRONTEND_SECTIONS: SectionKey[] = ['clinicalIndication', 'findings', 'impression'];
-
-function storageToFrontendSection(value: string): SectionKey | string {
-  switch (value) {
-    case 'clinical_indication':
-      return 'clinicalIndication';
-    case 'patient_summary':
-      return 'patientSummary';
-    case 'additional_notes':
-      return 'additionalNotes';
-    default:
-      return value;
-  }
-}
+const DEFAULT_FRONTEND_SECTIONS: SectionKey[] = ['clinical_indication', 'findings', 'impression'];
 
 function normalizeSectionList(value: unknown, fallback: SectionKey[]): SectionKey[] {
   if (!Array.isArray(value) || !value.length) {
@@ -71,7 +58,6 @@ function normalizeSectionList(value: unknown, fallback: SectionKey[]): SectionKe
 
   return value
     .filter((item): item is string => typeof item === 'string')
-    .map(storageToFrontendSection)
     .filter((item): item is SectionKey => SECTIONS.some(section => section.key === item));
 }
 
@@ -358,12 +344,12 @@ const PanelStudyNotes = ({ servicesManager }) => {
       setReport(
         applyTemplateDefaults(
           {
-            clinicalIndication: data.clinicalIndication || '',
+            clinical_indication: data.clinical_indication || '',
             findings: data.findings || '',
             impression: data.impression || '',
-            patientSummary: data.patientSummary || '',
+            patient_summary: data.patient_summary || '',
             recommendations: data.recommendations || '',
-            additionalNotes: data.additionalNotes || '',
+            additional_notes: data.additional_notes || '',
             declaration: data.declaration || '',
             status: data.status === 'final' ? 'final' : 'draft',
           },
@@ -508,12 +494,12 @@ const PanelStudyNotes = ({ servicesManager }) => {
       }
 
       setReport({
-        clinicalIndication: data.clinicalIndication || '',
+        clinical_indication: data.clinical_indication || '',
         findings: data.findings || '',
         impression: data.impression || '',
-        patientSummary: data.patientSummary || '',
+        patient_summary: data.patient_summary || '',
         recommendations: data.recommendations || '',
-        additionalNotes: data.additionalNotes || '',
+        additional_notes: data.additional_notes || '',
         declaration: data.declaration || '',
         status: data.status === 'final' ? 'final' : 'draft',
       });
@@ -562,10 +548,10 @@ const PanelStudyNotes = ({ servicesManager }) => {
       } else {
         setReport(prev => ({
           ...prev,
-          clinicalIndication: data.enhancedReport.clinicalIndication || prev.clinicalIndication,
+          clinical_indication: data.enhancedReport.clinical_indication || prev.clinical_indication,
           findings: data.enhancedReport.findings || prev.findings,
           impression: data.enhancedReport.impression || prev.impression,
-          patientSummary: data.enhancedReport.patientSummary || prev.patientSummary,
+          patient_summary: data.enhancedReport.patient_summary || prev.patient_summary,
           recommendations: data.enhancedReport.recommendations || prev.recommendations,
         }));
         setShowDialog(false);
